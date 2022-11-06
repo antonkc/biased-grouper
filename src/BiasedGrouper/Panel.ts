@@ -14,8 +14,8 @@ export class Panel {
 			"dist",
 			"toolkit.min.js",
 		]);
-		const eventsUri = getUri(webview, extensionUri, ["dist", "BiasedGrouper", "events.runtime.js"]);
-		const cssUri = getUri(webview, extensionUri, ["dist", "BiasedGrouper", "Panel.css"]);
+		const loaderUri = getUri(webview, extensionUri, ["dist", "BiasedGrouper", "loader.runtime.js"]);
+
 		// Tip: Install the es6-string-html VS Code extension to enable code highlighting below
 		return /*html*/ `
 			<!DOCTYPE html>
@@ -26,13 +26,11 @@ export class Panel {
 					<!-- <meta http-equiv="Content-Security-Policy"> -->
 					<!-- <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource} https:; script-src ${webview.cspSource}; style-src ${webview.cspSource};"/> -->
 					<script type="module" src="${toolkitUri}"></script>
-					<script type="module" src="${eventsUri}"></script>
-					<title>Hello from Biased Grouper!</title>
-					<link rel="stylesheet" href="${cssUri}">
+					<script type="module" src="${loaderUri}"></script>
+					<title>Biased Grouper</title>
 				</head>
 				<body>
-					<h1>Hello from Biased Grouper!</h1>
-					<vscode-button id="howdy">Howdy!</vscode-button>
+					<main id="app"></main>
 				</body>
 			</html>
 		`;
@@ -68,7 +66,8 @@ export class Panel {
 			Panel.currentPanel._panel.reveal(vscode.ViewColumn.Active);
 		} else {
 			const panel = vscode.window.createWebviewPanel("biased-grouper", "Biased Grouper", vscode.ViewColumn.Active, {
-				"enableScripts": true
+				"enableScripts": true,
+				"retainContextWhenHidden": true
 			});
 
 			Panel.currentPanel = new Panel(panel, extensionUri);
