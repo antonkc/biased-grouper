@@ -74,6 +74,10 @@ export class Panel {
 		}
 	}
 
+	public static sendMessageToView(msg: any){
+		this.currentPanel?._panel.webview.postMessage(msg);
+	}
+
 	public dispose() {
 		Panel.currentPanel = null;
 

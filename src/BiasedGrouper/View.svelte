@@ -13,10 +13,10 @@
 	<vscode-panel-tab id="groups-tab">Groups</vscode-panel-tab>
 	<vscode-panel-tab id="results-tab">Results</vscode-panel-tab>
 	<vscode-panel-view id="data-view">
-		Data
+		{usersText}
 	</vscode-panel-view>
 	<vscode-panel-view id="groups-view">
-		Groups
+		{groupsText}
 	</vscode-panel-view>
 	<vscode-panel-view id="results-view">
 		<div>
@@ -32,6 +32,9 @@
 
 	export let vscode: WebviewApi<unknown>;
 
+	let usersText: string = "";
+	let groupsText: string = "";
+
 	function handleHowdyClick() {
 		vscode.postMessage({
 			command: "hello",
@@ -40,11 +43,13 @@
 	}
 
 	window.addEventListener('message', event => {
-
-		const message = event.data; // The JSON data the extension layer sent
-
+		const message = event.data;
 		switch (message.command) {
-			case 'refactor':
+			case 'adddata':
+				usersText = message.value
+				break;
+			case 'addgroups':
+				groupsText = message.value
 				break;
 		}
 	});

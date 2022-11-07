@@ -9,10 +9,32 @@ export function activate(context: vscode.ExtensionContext) {
 			BiasedGrouperPanel.render(context.extensionUri);
 		}),
 		vscode.commands.registerCommand('biased-grouper.loadThisAsData', () => {
-			// not implemented
+			const editor = vscode.window.activeTextEditor;
+			if (editor) {
+					let document = editor.document;
+					const text = document.getText();
+
+					BiasedGrouperPanel.sendMessageToView({
+						command: "adddata",
+						value: text
+					});
+			} else {
+				vscode.window.showInformationMessage("You don't seem to have an open editor");
+			}
 		}),
 		vscode.commands.registerCommand('biased-grouper.loadThisAsGroups', () => {
-			// not implemented
+			const editor = vscode.window.activeTextEditor;
+			if (editor) {
+					let document = editor.document;
+					const text = document.getText();
+
+					BiasedGrouperPanel.sendMessageToView({
+						command: "addgroups",
+						value: text
+					});
+			} else {
+				vscode.window.showInformationMessage("You don't seem to have an open editor");
+			}
 		})
 	];
 
