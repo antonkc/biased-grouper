@@ -6,10 +6,15 @@
 			"ES2020",
 			"DOM"
 		],
+		"importsNotUsedAsValues": "error",
 		"sourceMap": true,
 		"rootDir": "src",
 		"strict": true,
 		"noImplicitReturns": true,
-		"noFallthroughCasesInSwitch": true
+		"noFallthroughCasesInSwitch": true,
+		"esModuleInterop": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+		"checkJs": false
 	}
 }

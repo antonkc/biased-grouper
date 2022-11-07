@@ -4,6 +4,8 @@ import * as path from "path";
 import glob from "glob";
 import { fileURLToPath } from "url";
 import { build } from "esbuild";
+import esbuildSvelte from "esbuild-svelte";
+import sveltePreprocess from "svelte-preprocess";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -50,7 +52,7 @@ const buildConfig = ((args) => {
 		test: {
 			bundle: false,
 			entryPoints: [path.resolve(__dirname, "src/test/runTest.ts")],
-			outdir: path.resolve(__dirname, "out/test/.js"),
+			outdir: path.resolve(__dirname, "out/test/"),
 		},
 	};
 
@@ -100,8 +102,22 @@ if(isMainBuildOk) {
 		configInstance.platform = "browser";
 		configInstance.entryPoints = [filePath];
 		configInstance.outdir = finalPath;
+		configInstance.mainFields = ["svelte", "browser"];
+		configInstance.plugins = [
+			esbuildSvelte({
+				compilerOptions: {
+					css: true,
+				},
+				preprocess: sveltePreprocess({
+					typescript: {
+						compilerOptions: {
+							module: "ES2020",
+						}
+					}
+				}),
+			}),
+		];
 		//configInstance.logLevel = "verbose";
-		//configInstance.outfile = finalPath;
 
 		try {
 			let _buildResult = await build(configInstance);
