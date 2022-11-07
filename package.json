@@ -47,6 +47,7 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
+    "@tsconfig/svelte": "^3.0.0",
     "@types/glob": "^8.0.0",
     "@types/mocha": "^10.0.0",
     "@types/node": "16.x",
@@ -58,14 +59,17 @@
     "esbuild": "^0.15.13",
     "esbuild-svelte": "^0.7.1",
     "eslint": "^8.24.0",
+    "eslint-plugin-svelte3": "^4.0.0",
     "glob": "^8.0.3",
     "mocha": "^10.1.0",
-    "svelte": "^3.52.0",
+    "postcss": "^8.4.18",
+    "svelte-check": "^2.9.2",
     "svelte-preprocess": "^4.10.7",
     "typescript": "^4.8.4",
     "yargs": "^17.6.2"
   },
   "dependencies": {
-    "@vscode/webview-ui-toolkit": "^1.1.0"
+    "@vscode/webview-ui-toolkit": "^1.1.0",
+    "svelte": "^3.52.0"
   }
 }

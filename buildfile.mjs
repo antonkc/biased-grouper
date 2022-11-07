@@ -52,7 +52,7 @@ const buildConfig = ((args) => {
 		test: {
 			bundle: false,
 			entryPoints: [path.resolve(__dirname, "src/test/runTest.ts")],
-			outdir: path.resolve(__dirname, "out/test/.js"),
+			outdir: path.resolve(__dirname, "out/test/"),
 		},
 	};
 
@@ -102,17 +102,22 @@ if(isMainBuildOk) {
 		configInstance.platform = "browser";
 		configInstance.entryPoints = [filePath];
 		configInstance.outdir = finalPath;
-		configInstance.mainFields = ["svelte", "browser", "module", "main"];
+		configInstance.mainFields = ["svelte", "browser"];
 		configInstance.plugins = [
 			esbuildSvelte({
 				compilerOptions: {
-					css: true
+					css: true,
 				},
-				preprocess: sveltePreprocess(),
+				preprocess: sveltePreprocess({
+					typescript: {
+						compilerOptions: {
+							module: "ES2020",
+						}
+					}
+				}),
 			}),
 		];
 		//configInstance.logLevel = "verbose";
-		//configInstance.outfile = finalPath;
 
 		try {
 			let _buildResult = await build(configInstance);

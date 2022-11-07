@@ -7,7 +7,7 @@
     },
     "plugins": [
         "@typescript-eslint",
-        "svelte"
+        "svelte3"
     ],
     "rules": {
         "@typescript-eslint/naming-convention": "warn",
